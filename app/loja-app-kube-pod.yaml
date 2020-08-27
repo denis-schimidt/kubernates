@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: loja-app
+spec:
+  containers:
+    - name: loja-app
+      image: rafanercessian/aplicacao-loja:v1
+      ports:
+        - containerPort: 80

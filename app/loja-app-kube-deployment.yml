@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loja-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: loja-app-pod
+  template:
+    metadata:
+      labels:
+        app: loja-app-pod
+    spec:
+      containers:
+      - name: loja-app
+        image: rafanercessian/aplicacao-loja:v1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80

@@ -1,0 +1,29 @@
+version: "3.8"
+networks: 
+    kub-net:
+        name: kub-net
+        driver: "bridge"
+services: 
+    db:
+        container_name: db
+        image: mysql:5.7.19
+        environment: 
+            - MYSQL_DATABASE=loja
+            - MYSQL_USER=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+        volumes:
+            - ./volume-mysql:/var/lib/mysql
+        networks: 
+            - kub-net
+    loja-app:
+        container_name: loja-app
+        build: 
+            dockerfile: loja-app.dockerfile
+            context: .
+        image: schimidt/loja-app:v1           
+        ports: 
+            - 80:80
+        networks: 
+            - kub-net
+        depends_on: 
+            - db
